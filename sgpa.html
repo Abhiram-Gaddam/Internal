@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { clifford: '#da373d' }
+          }
+        }
+      }
+    </script>
+    <script src="script.js"></script>
+    </head>
+<body> 
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+            
+            <!-- Mobile Menu Button -->
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <button id="menu-button" type="button" class="inline-flex items-center p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu()">
+                <span class="sr-only">Open main menu</span>
+                <svg id="menu-open-icon" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+                <svg id="menu-close-icon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+      
+            <!-- Logo and Navigation Links -->
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
+              <div class="flex text-white flex-1 items-center text-[25px] justify-center font-extrabold sm:items-stretch sm:justify-center">Rvrjc Internals</div>
+              <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                  <a href="index.html" class="bg-gray-900 px-3 py-2 text-sm font-medium text-white rounded-md">Dashboard</a>
+                  <a href="internal.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Internals</a>
+                  <a href="sgpa.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">SGPA</a>
+                  <a href="cgpa.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">CGPA</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Mobile Menu -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block bg-gray-900 px-3 py-2 text-base font-medium text-white rounded-md">Dashboard</a>
+            <a href="internal.html" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Internals</a>
+            <a href="sgpa.html" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">SGPA</a>
+            <a href="cgpa.html" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">CGPA</a>
+          </div>
+        </div>
+      </nav>
+      <div class="absolute inset-0 -z-10 transform-gpu overflow-hidden blur-3xl">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] 
+                     bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] 
+                     sm:w-[72.1875rem]" 
+             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 
+                                       60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 
+                                       0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        </div>
+        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 
+                     bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] 
+                     sm:w-[72.1875rem]" 
+             style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 
+                                       60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 
+                                       0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        </div>
+      </div>
+    <div class="p-10 "> 
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 class="mt-10 text-center text-[40px] font-bold tracking-tight text-gray-900">SGPA Calculator </h2>
+          </div>
+    <form>  
+
+        <div  class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[30px] font-medium text-black-900 font-bold ">Year</label>
+                <div class="mt-2">
+                 <select id="year" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[30px] font-medium text-gray-900">Semester</label>
+                <div class="mt-2">
+                    <select id="sem" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sm:col-span-3 ">
+            <label for="last-name" class="block  text-[30px] font-medium text-gray-900">Branch</label>
+            <div class="mt-2">
+                <select id="branch" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup>
+                        <option value="0">Select</option>
+                        <option value="csbs">CSBS</option>
+                        <option value="cse">CSE</option>
+                        <option value="csm">CSM</option>
+                        <option value="csd">CSD</option>
+                        <option value="co">CSO</option>
+                        <option value="it">IT</option>
+                        <option value="ece">ECE</option>
+                        <option value="eee">EEE</option>
+                        <option value="chemical">CHEMICAL</option>
+                        <option value="civil">CIVIL</option>
+                        <option value="mech">MECH</option>
+                    </optgroup>
+                 </select>
+            </div>
+       
+  
+        <div class="space-y-12">
+          
+      
+          <div class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[20px] font-medium text-gray-900">Subject-1</label>
+                <div class="mt-2">
+                 <select id="sub-gpa1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[20px] font-medium text-gray-900">Subject-2</label>
+                <div class="mt-2">
+                    <select id="sub-gpa2" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B</option>
+                            <option value="7">C</option>
+                            <option value="6">D</option>
+                            <option value="5">E</option>
+                            <option value="0">F</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[20px] font-medium text-gray-900">Subject-3</label>
+                <div class="mt-2">
+                 <select id="sub-gpa3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[20px] font-medium text-gray-900">Subject-4</label>
+                <div class="mt-2">
+                    <select id="sub-gpa4" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B</option>
+                            <option value="7">C</option>
+                            <option value="6">D</option>
+                            <option value="5">E</option>
+                            <option value="0">F</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[20px]font-medium text-gray-900">Subject-5</label>
+                <div class="mt-2">
+                 <select id="sub-gpa5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[20px] font-medium text-gray-900">Subject-6</label>
+                <div class="mt-2">
+                    <select id="sub-gpa6" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B</option>
+                            <option value="7">C</option>
+                            <option value="6">D</option>
+                            <option value="5">E</option>
+                            <option value="0">F</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[20px] font-medium text-gray-900">Lab-1</label>
+                <div class="mt-2">
+                 <select id="lab1" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[20px] font-medium text-gray-900">Lab-2</label>
+                <div class="mt-2">
+                    <select id="lab2" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B</option>
+                            <option value="7">C</option>
+                            <option value="6">D</option>
+                            <option value="5">E</option>
+                            <option value="0">F</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-b border-gray-900/10 pb-12">
+            
+      
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                <label for="first-name" class="block text-[20px] font-medium text-gray-900">Lab-3</label>
+                <div class="mt-2">
+                 <select id="lab3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup><option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-3">
+                <label for="last-name" class="block text-[20px] font-medium text-gray-900">Lab-4</label>
+                <div class="mt-2">
+                    <select id="lab4" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <optgroup>
+                            <option value="0">Select</option>
+                            <option value="10">A+</option>
+                            <option value="9">A</option>
+                            <option value="8">B</option>
+                            <option value="7">C</option>
+                            <option value="6">D</option>
+                            <option value="5">E</option>
+                            <option value="0">F</option>
+                        </optgroup>
+                     </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sm:col-span-3 ">
+            <label for="last-name" class="block  text-[20px] font-medium text-gray-900">Lab-5</label>
+            <div class="mt-2">
+                <select id="lab5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <optgroup>
+                        <option value="0">Select</option>
+                        <option value="10">A+</option>
+                        <option value="9">A</option>
+                        <option value="8">B</option>
+                        <option value="7">C</option>
+                        <option value="6">D</option>
+                        <option value="5">E</option>
+                        <option value="0">F</option>
+                    </optgroup>
+                 </select>
+            </div>
+          
+          
+          
+          
+      
+          
+        </div>
+      
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          <button onclick="sgpa_submit()" type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
+        </div>
+        <pre id="footer" class="flex justify-center text-[25px]">
+
+        </pre>
+
+      </form>
+    </div>
+</body>
+</html>
+
+  
