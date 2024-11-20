@@ -29,8 +29,8 @@
           </button>
         </div>
         <!-- Logo and Navigation Links -->
-        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-          <div class="text-white text-[25px] font-extrabold">Rvrjc Internals</div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
+          <div class="flex text-white flex-1 items-center text-[25px] justify-center font-extrabold sm:items-stretch sm:justify-center">Rvrjc Internals</div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <a href="index.html" class="bg-gray-900 px-3 py-2 text-sm font-medium text-white rounded-md">Dashboard</a>
@@ -42,6 +42,19 @@
         </div>
       </div>
     </div>
+        <!-- <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
+          <div class="text-white text-[25px] font-extrabold">Rvrjc Internals</div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <a href="index.html" class="bg-gray-900 px-3 py-2 text-sm font-medium text-white rounded-md">Dashboard</a>
+              <a href="internal.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">Internals</a>
+              <a href="sgpa.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">SGPA</a>
+              <a href="cgpa.html" class="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">CGPA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="sm:hidden hidden">
       <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Dashboard</a>
@@ -85,45 +98,7 @@
   
 
   <!-- JavaScript for Menu Toggle, Dynamic Input Fields, and CGPA Calculation -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
-    }
-
-    function generateInputFields() {
-      const container = document.getElementById('inputFieldsContainer');
-      const numFields = parseInt(document.getElementById('numSelect').value);
-      container.innerHTML = ''; // Clear previous inputs
-
-      for (let i = 1; i <= numFields; i++) {
-        const inputDiv = document.createElement('div');
-        inputDiv.innerHTML = `
-          <label class="block text-sm font-medium text-gray-700">Enter Sgpa of semester ${i}</label>
-          <input type="number" min="0" max="10" id="marks${i}" class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Sgpa(0-10)" required>
-        `;
-        container.appendChild(inputDiv);
-      }
-    }
-
-    function calculateCGPA() {
-      const numFields = parseInt(document.getElementById('numSelect').value);
-      let total = 0;
-      let count = 0;
-
-      for (let i = 1; i <= numFields; i++) {
-        const marksInput = document.getElementById(`marks${i}`);
-        const marks = parseFloat(marksInput.value);
-
-        if (!isNaN(marks)) {
-          total += marks;
-          count++;
-        }
-      }
-
-      const cgpa = count > 0 ? (total / count).toFixed(2) : 'N/A';
-      document.getElementById('result').innerText = `CGPA: ${cgpa}`;
-    }
-  </script>
+ 
+  <script src="script.js"></script>
 </body>
 </html>
