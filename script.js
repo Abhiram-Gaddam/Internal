@@ -89,194 +89,299 @@ function att(a) {
     else
         return 0;
 }
-function Cgpa(){
-    event.preventDefault();
-    var cgpa = parseFloat(document.getElementById("cgpa").value);
-    var pcgpa =parseFloat(document.getElementById("pcgpa").value);
-    if(pcgpa==0)
-    {
-        cgpa=cgpa+0;
+
+const credits = {
+    mech: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    civil: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    chemical: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 1.5, 3]],
+        "1.2": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 1.5, 2]]
+    },
+    cse: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 2], [1.5, 1, 1.5, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    it: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 2], [1.5, 1, 1.5, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    csm: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 2], [1.5, 1.5, 1.5, 1]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    csbs: {
+        "1.1": [[3, 3, 3, 3, 3], [1, 1, 1, 1.5]],
+        "1.2": [[3, 3, 3, 3, 3], [1, 1, 1, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 2, 1.5, 2]],
+        "3.2": [[2, 3, 3, 3, 3, 3], [1, 1, 2]],
+        "4.1": [[2, 3, 3, 3, 3, 3], [1, 3, 2]]
+    },
+    ece: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1, 3, 2]],
+        "1.2": [[3, 3, 3, 3], [1.5, 2, 3, 1]],
+        "2.1": [[3, 4, 3, 3, 3], [1, 1.5, 1, 2]],
+        "2.2": [[3, 3, 4, 3, 3], [1.5, 1, 1, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 2, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [2, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 2, 1.5],[ 3, 2]]
+    },cso: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 2], [1.5, 1, 1.5, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
+    },
+    eee: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[2, 3, 3, 3, 3], [3, 1.5, 1, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3],[ 3, 2]]
+    },
+    csd: {
+        "1.1": [[3, 3, 3, 3], [1.5, 1.5, 3, 1.5]],
+        "1.2": [[3, 3, 3, 3, 2], [1.5, 1, 1.5, 1.5]],
+        "2.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "2.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.1": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "3.2": [[3, 3, 3, 3, 3], [1.5, 1.5, 1.5, 2]],
+        "4.1": [[3, 3, 3, 3, 3, 3], [3, 2]]
     }
-    else{
-    cgpa=(pcgpa+cgpa)/2;
+};
+
+// Grade values corresponding to the grades selected
+// Grade values for each grade option
+const gradeValues = {
+    "A+": 10,
+    "A": 9,
+    "B": 8,
+    "C": 7,
+    "D": 6,
+    "E": 5,
+    "F": 0
+};
+
+// Function to dynamically generate subject and lab input fields
+function generateSubjectInputs() {
+    const branch = document.getElementById("branch").value;
+    const sem = `${document.getElementById("year").value}.${document.getElementById("sem").value}`;
+    document.getElementById("subjectInputs").innerHTML = "";
+
+    const semesterCredits = getSemesterCredits(branch, sem);
+    const subjects = semesterCredits[0] || []; // Subject credits
+    const labs = semesterCredits[1] || [];     // Lab credits
+
+    // Generate subject input fields
+    subjects.forEach((credit, index) => {
+        const subjectDiv = document.createElement("div");
+        subjectDiv.classList.add("subject-input", "sm:col-span-3");
+
+        const label = document.createElement("label");
+        label.classList.add("block", "text-[25px]", "font-medium", "text-gray-900");
+        label.textContent = `Subject ${index + 1}`;
+        subjectDiv.appendChild(label);
+
+        const gradeSelect = document.createElement("select");
+        gradeSelect.id = `subject${index + 1}`;
+        gradeSelect.classList.add(
+            "block", "w-full", "rounded-md", "border-0", "py-1.5", 
+            "text-gray-900", "shadow-sm", "ring-1", "ring-inset", 
+            "ring-gray-300", "focus:ring-2", "focus:ring-indigo-600"
+        );
+
+        Object.keys(gradeValues).forEach(grade => {
+            const option = document.createElement("option");
+            option.value = grade;
+            option.textContent = grade;
+            gradeSelect.appendChild(option);
+        });
+
+        subjectDiv.appendChild(gradeSelect);
+        document.getElementById("subjectInputs").appendChild(subjectDiv);
+    });
+
+    // Generate lab input fields
+    labs.forEach((credit, index) => {
+        const labDiv = document.createElement("div");
+        labDiv.classList.add("lab-input", "sm:col-span-3");
+
+        const label = document.createElement("label");
+        label.classList.add("block", "text-[25px]", "font-medium", "text-gray-900");
+        label.textContent = `Lab ${index + 1}`;
+        labDiv.appendChild(label);
+
+        const gradeSelect = document.createElement("select");
+        gradeSelect.id = `lab${index + 1}`;
+        gradeSelect.classList.add(
+            "block", "w-full", "rounded-md", "border-0", "py-1.5", 
+            "text-gray-900", "shadow-sm", "ring-1", "ring-inset", 
+            "ring-gray-300", "focus:ring-2", "focus:ring-indigo-600"
+        );
+
+        Object.keys(gradeValues).forEach(grade => {
+            const option = document.createElement("option");
+            option.value = grade;
+            option.textContent = grade;
+            gradeSelect.appendChild(option);
+        });
+
+        labDiv.appendChild(gradeSelect);
+        document.getElementById("subjectInputs").appendChild(labDiv);
+    });
+
+    // Add calculate button
+    const calculateButton = document.createElement("button");
+    calculateButton.textContent = "Calculate SGPA";
+    calculateButton.type = "button";
+    calculateButton.classList.add(
+        "rounded-md", "bg-indigo-600", "px-3", "py-2", 
+        "text-sm", "font-semibold", "text-white", "shadow-sm", 
+        "hover:bg-indigo-500", "focus:ring-2", "focus:ring-indigo-600"
+    );
+    calculateButton.onclick = calculateSGPA; // Fix: assigning function as callback
+
+    document.getElementById("subjectInputs").appendChild(calculateButton);
+}
+
+// Function to fetch credits based on branch and semester
+function getSemesterCredits(branch, sem) {
+    return credits[branch] && credits[branch][sem]
+        ? credits[branch][sem]
+        : [[], []];
+}
+
+// Function to calculate SGPA based on input values
+function calculateSGPA() {
+    const branch = document.getElementById("branch").value;
+    const sem = `${document.getElementById("year").value}.${document.getElementById("sem").value}`;
+    const semesterCredits = getSemesterCredits(branch, sem);
+    const subjects = document.querySelectorAll(".subject-input select");
+    const labs = document.querySelectorAll(".lab-input select");
+
+    let totalCredits = 0;
+    let totalGradePoints = 0;
+
+    subjects.forEach((subjectSelect, index) => {
+        const grade = subjectSelect.value;
+        const gradePoint = gradeValues[grade];
+        const credit = semesterCredits[0][index];
+
+        if (gradePoint !== undefined && credit !== undefined) {
+            totalCredits += credit;
+            totalGradePoints += gradePoint * credit;
+        }
+    });
+
+    labs.forEach((labSelect, index) => {
+        const grade = labSelect.value;
+        const gradePoint = gradeValues[grade];
+        const credit = semesterCredits[1][index];
+
+        if (gradePoint !== undefined && credit !== undefined) {
+            totalCredits += credit;
+            totalGradePoints += gradePoint * credit;
+        }
+    });
+
+    const sgpa = totalCredits > 0 ? (totalGradePoints / totalCredits) : 0;
+    document.getElementById("sgpaDisplay").textContent = `SGPA: ${sgpa.toFixed(2)}`;
+}
+
+
+function generateInputFields() {
+    const container = document.getElementById('inputFieldsContainer');
+    const numFields = parseInt(document.getElementById('numSelect').value);
+    container.innerHTML = ''; // Clear previous inputs
+
+    for (let i = 1; i <= numFields; i++) {
+      const inputDiv = document.createElement('div');
+      inputDiv.innerHTML = `
+        <label class="block text-sm font-medium text-gray-700">SGPA of Semester ${i}</label>
+        <input type="number" id="marks${i}" 
+          class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+          placeholder="(0-10)" 
+          oninput="validateInput(this)" required>
+      `;
+      container.appendChild(inputDiv);
     }
-    var resultDiv=document.getElementById("resultss");
-    resultDiv.innerHTML="YOUR CGPA IS :"+cgpa;
-}
+  }
 
-
-function sgpa_reset() {
-    document.getElementById("sgpaform1").reset();
-    document.getElementById("sgpaform2").reset();
-    document.getElementById("sgpaform3").reset();
-}
-
-function sgpa_submit()
-{
-    event.preventDefault();
-
-    var branch=(document.getElementById("branch").value);
-    var sem=(document.getElementById("sem").value);
-    var year=(document.getElementById("year").value);
-    var pr=getcredits(branch,sem,year);
-    pr=Math.round(pr * (10 ** 2)) / (10 ** 2);
-    console.log("Branch:", branch, "Year:", year, "Semester:", sem, "Credits:", pr);
-
- 
-    var foo=document.getElementById("footer");
-    foo.innerHTML="Your SGPA is :"+pr;
-    
-}
-
-function getcredits(branch,sem,year)
-{
-    var sb1=0,sb2=0,sb3=0,sb4=0,sb5=0,sb6=0;
-    var lb1=0,lb2=0,lb3=0,lb4=0,lb5=0;
-    var sgpa_res;
-    sb1=parseFloat(document.getElementById("sub-gpa1").value);
-    lb1=parseFloat(document.getElementById("lab1").value);
-    sb2=parseFloat(document.getElementById("sub-gpa2").value);
-    lb2=parseFloat(document.getElementById("lab2").value);
-    sb3=parseFloat(document.getElementById("sub-gpa3").value);
-    lb3=parseFloat(document.getElementById("lab3").value);
-    sb4=parseFloat(document.getElementById("sub-gpa4").value);
-    lb4=parseFloat(document.getElementById("lab4").value);
-    sb5=parseFloat(document.getElementById("sub-gpa5").value);
-    sb6=parseFloat(document.getElementById("sub-gpa6").value);
-    lb5=parseFloat(document.getElementById("lab5").value);
-
-    const credits = {
-        mech: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        civil: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        chemical: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 1.5, 3],
-            "1.2": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 1.5, 2]
-        },
-        cse: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 2, 1.5, 1, 1.5, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        it: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 2, 1.5, 1, 1.5, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        csm: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 2, 1.5, 1.5, 1.5, 1],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        csbs: {
-            "1.1": [3, 3, 3, 3, 3, 1, 1, 1, 1.5],
-            "1.2": [3, 3, 3, 3, 3, 1, 1, 1, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 2, 1.5, 2],
-            "3.2": [2, 3, 3, 3, 3, 3, 1, 1, 2],
-            "4.1": [2, 3, 3, 3, 3, 3, 1, 3, 2]
-        },
-        ece: {
-            "1.1": [3, 3, 3, 3, 1.5, 1, 3, 2],
-            "1.2": [3, 3, 3, 3, 1.5, 2, 3, 1],
-            "2.1": [3, 4, 3, 3, 3, 1, 1.5, 1, 2],
-            "2.2": [3, 3, 4, 3, 3, 1.5, 1, 1, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 2, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        cso: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 2, 1.5, 1, 1.5, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        eee: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [2, 3, 3, 3, 3, 3, 1.5, 1, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        },
-        csd: {
-            "1.1": [3, 3, 3, 3, 1.5, 1.5, 3, 1.5],
-            "1.2": [3, 3, 3, 3, 2, 1.5, 1, 1.5, 1.5],
-            "2.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "2.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.1": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "3.2": [3, 3, 3, 3, 3, 1.5, 1.5, 1.5, 2],
-            "4.1": [3, 3, 3, 3, 3, 3, 3, 2]
-        }
-    };
-    const semesterCredits = credits[branch][year + "." + sem];
-    //document.writeln(semesterCredits);
-    var i;
-    var sum=0;
-    for(i=0;i<semesterCredits.length;i++)
-    {
-        sum+=semesterCredits[i];
+  function validateInput(input) {
+    const value = parseFloat(input.value);
+    if (isNaN(value) || value < 0 || value > 10) {
+      input.classList.add('border-red-500');
+      input.classList.remove('border-gray-300');
+    } else {
+      input.classList.remove('border-red-500');
+      input.classList.add('border-gray-300');
     }
-    if(sb5==0||sb5==null)
-        {
-        sgpa_res=(sb1*semesterCredits[0])+(sb2*semesterCredits[1])+(sb3*semesterCredits[2])+(sb4*semesterCredits[3])+(lb1*semesterCredits[4])+(lb2*semesterCredits[5])+(lb3*semesterCredits[6])+(lb4*semesterCredits[7]);
-        sgpa_res=sgpa_res/sum;
-        return sgpa_res;
+  }
 
-        }
-        else if(year==4 && sem==1 && (branch=="chemical" || branch=="csbs")){
-            sgpa_res=(sb1*semesterCredits[0])+(sb2*semesterCredits[1])+(sb3*semesterCredits[2])+(sb4*semesterCredits[3])+(sb5*semesterCredits[4])+(sb6*semesterCredits[5])+(lb1*semesterCredits[6])+(lb2*semesterCredits[7])+(lb3*semesterCredits[8]);
-        }
-        else if(year==4 && sem==1){
-            sgpa_res=(sb1*semesterCredits[0])+(sb2*semesterCredits[1])+(sb3*semesterCredits[2])+(sb4*semesterCredits[3])+(sb5*semesterCredits[4])+(sb6*semesterCredits[5])+(lb1*semesterCredits[6])+(lb2*semesterCredits[7]);
-        }
-        else if(year==3 && (branch=="csbs" || branch=="eee") && sem==2)
-        {
-            sgpa_res=(sb1*semesterCredits[0])+(sb2*semesterCredits[1])+(sb3*semesterCredits[2])+(sb4*semesterCredits[3])+(sb5*semesterCredits[4])+(sb6*semesterCredits[5])+(lb1*semesterCredits[6])+(lb2*semesterCredits[7])+(lb3*semesterCredits[8]);
-        }
-        else{
-        sgpa_res=(sb1*semesterCredits[0])+(sb2*semesterCredits[1])+(sb3*semesterCredits[2])+(sb4*semesterCredits[3])+(sb5*semesterCredits[4])+(lb1*semesterCredits[5])+(lb2*semesterCredits[6])+(lb3*semesterCredits[7])+(lb4*semesterCredits[8]);
-        sgpa_res=sgpa_res/sum;
-        return sgpa_res;
-        }
+  function calculateCGPA() {
+    const numFields = parseInt(document.getElementById('numSelect').value);
+    let total = 0;
+    let count = 0;
+    let valid = true;
 
+    for (let i = 1; i <= numFields; i++) {
+      const marksInput = document.getElementById(`marks${i}`);
+      const marks = parseFloat(marksInput.value);
 
-    
-}
+      if (isNaN(marks) || marks < 0 || marks > 10) {
+        marksInput.classList.add('border-red-500');
+        valid = false;
+      } else {
+        total += marks;
+        count++;
+      }
+    }
+
+    if (valid && count > 0) {
+      const cgpa = (total / count).toFixed(2);
+      document.getElementById('result').innerText = `CGPA: ${cgpa}`;
+    } else {
+      document.getElementById('result').innerText = 'Please correct invalid inputs.';
+    }
+  }
